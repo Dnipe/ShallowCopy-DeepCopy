@@ -17,6 +17,14 @@
 @property (nonatomic, copy) NSString *copysStr;
 @property (nonatomic, strong) NSString *strongStr;
 @property (nonatomic, copy) NSMutableString *copsStr;
+
+
+
+
+
+
+
+
 @end
 
 
@@ -38,10 +46,14 @@
 //    [self sixthMethod];
     
     
-    [self seventhMethod];
+//    [self seventhMethod];
     
 //    [self eighthMethod];
     
+    
+    [self ninthMethod];
+    
+    [self tenthMethod];
 }
 
 /**
@@ -281,12 +293,101 @@
 
 
 
+- (void)ninthMethod {
+    
+    NSArray *array = [NSArray arrayWithObjects:
+                      [NSMutableString stringWithFormat:@"one"],
+                      [NSMutableString stringWithFormat:@"two"],
+                      nil];
+    NSMutableArray *mArray = [NSMutableArray arrayWithObjects:
+                              [NSMutableString stringWithFormat:@"three"],
+                              [NSMutableString stringWithFormat:@"four"],
+                              nil];
+    
+    NSArray *copyArray = [array copy];
+    NSArray *mCopyArray = [array mutableCopy];
+    
+    
+    
+    NSArray *copyMArray = [mArray copy];
+    NSArray *mCopyMArray = [mArray mutableCopy];
+ 
+    
+    
+    
+    NSLog(@"array: %@, mArray: %@", @([array retainCount]), @([mArray retainCount]));
+    
+    NSLog(@"%p ** %p ** %p", array, copyArray, mCopyArray);
+    
+    NSLog(@"%p ** %p ** %p", mArray, copyMArray, mCopyMArray);
+    
+    NSLog(@"%@ ** %@ ** %@ ** %@", copyMArray.class, mCopyArray.class, copyMArray.class, mCopyMArray.class);
+    
+    
+    NSLog(@"=====================================");
+    
+    
+    [(NSMutableString *)copyArray[0] appendString:@"-test"];
+    [(NSMutableString *)mCopyArray[0] appendString:@"*test"];
+    
+    [(NSMutableString *)copyMArray[0] appendString:@"=test"];
+    [(NSMutableString *)mCopyMArray[0] appendString:@"+test"];
+    
+    
+    NSLog(@"%@", array);
+    NSLog(@"%@", mArray);
+    NSLog(@"%@", copyArray);
+    NSLog(@"%@", mCopyArray);
+    NSLog(@"%@", copyMArray);
+    NSLog(@"%@", mCopyMArray);
+}
+
+
+- (void)tenthMethod {
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSMutableString stringWithFormat:@"one"], @"one", [NSMutableString stringWithFormat:@"two"], @"tow", nil];
+    NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableString stringWithFormat:@"three"], @"three", [NSMutableString stringWithFormat:@"four"], @"four", nil];
+    
+    
+    NSDictionary *copyDic = [dic copy];
+    NSDictionary *mCopyDic = [dic mutableCopy];
+    
+    NSDictionary *copyMDic = [mDic copy];
+    NSDictionary *mCopyMDic = [mDic mutableCopy];
+    
+    NSLog(@"%@, %@", @([dic retainCount]), @([mDic retainCount]));
+    
+    
+    
+    NSLog(@"%p ** %p ** %p", dic, copyDic, mCopyDic);
+    
+    NSLog(@"%p ** %p ** %p", mDic, copyMDic, mCopyMDic);
+    
+    NSLog(@"%@ ** %@ ** %@ ** %@", copyDic.class, mCopyDic.class, copyMDic.class, mCopyMDic.class);
+    
+    NSLog(@"=====================================");
+    
+    
+    [(NSMutableString *)[copyDic objectForKey:@"one"] appendString:@"-test"];
+    [(NSMutableString *)[mCopyDic objectForKey:@"one"] appendString:@"*test"];
+    [(NSMutableString *)[copyMDic objectForKey:@"three"] appendString:@"=test"];
+    [(NSMutableString *)[mCopyMDic objectForKey:@"three"] appendString:@"+test"];
+    
+    NSLog(@"%@", dic);
+    NSLog(@"%@", mDic);
+    NSLog(@"%@", copyDic);
+    NSLog(@"%@", mCopyDic);
+    NSLog(@"%@", copyMDic);
+    NSLog(@"%@", mCopyMDic);
+}
 
 
 
-
-
-
+/**
+ 
+ 由上面的例子可以看出, copy和 mutableCopy 都不是深拷贝, 在使用时要注意拷贝对象改变时, 被拷贝的对象也会改变, 属性对象设置为 copy 时也要特别注意
+ 
+ */
 
 
 
