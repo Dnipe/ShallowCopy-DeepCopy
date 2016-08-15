@@ -113,28 +113,6 @@
     for (NSMutableString *str  in dataArray3) {
         NSLog(@"dataArray3 elements = %p", str);
     }
-    
-//    2016-08-09 16:24:46.016 ShallowCopy&DeepCopy[33285:3312970] dataArray3 : (
-//                                                                              "one--ONE",
-//                                                                              two,
-//                                                                              three,
-//                                                                              four
-//                                                                              )
-//    2016-08-09 16:24:46.017 ShallowCopy&DeepCopy[33285:3312970] dataArray2 : (
-//                                                                              "one--ONE",
-//                                                                              two,
-//                                                                              three,
-//                                                                              four
-//                                                                              )
-//    2016-08-09 16:36:58.824 ShallowCopy&DeepCopy[33328:3345397] dataArray2 address = 0x7fd040c1bde0, dataArray3 address = 0x7fd040c21a20
-//    2016-08-09 16:36:58.824 ShallowCopy&DeepCopy[33328:3345397] dataArray2 elements = 0x7fd040c1da90
-//    2016-08-09 16:36:58.824 ShallowCopy&DeepCopy[33328:3345397] dataArray2 elements = 0x7fd040c0bc20
-//    2016-08-09 16:36:58.824 ShallowCopy&DeepCopy[33328:3345397] dataArray2 elements = 0x7fd040c1fd60
-//    2016-08-09 16:36:58.824 ShallowCopy&DeepCopy[33328:3345397] dataArray2 elements = 0x7fd040c07730
-//    2016-08-09 16:36:58.825 ShallowCopy&DeepCopy[33328:3345397] dataArray3 elements = 0x7fd040c1da90
-//    2016-08-09 16:36:58.825 ShallowCopy&DeepCopy[33328:3345397] dataArray3 elements = 0x7fd040c0bc20
-//    2016-08-09 16:36:58.825 ShallowCopy&DeepCopy[33328:3345397] dataArray3 elements = 0x7fd040c1fd60
-//    2016-08-09 16:36:58.825 ShallowCopy&DeepCopy[33328:3345397] dataArray3 elements = 0x7fd040c07730
     /**
      此时 mutableCopy 是浅拷贝, 只拷贝了容器, 分享内部元素
      */
