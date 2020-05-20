@@ -8,22 +8,30 @@
 
 #import "ViewController.h"
 #import "Person.h"
-
+#import "OneViewController.h"
 
 @interface ViewController ()
 
 
 // copy and strong
-@property (nonatomic, copy) NSString *copysStr;
-@property (nonatomic, strong) NSString *strongStr;
+//@property (nonatomic, copy) NSString *copysStr;
+//@property (nonatomic, strong) NSString *strongStr;
 @property (nonatomic, copy) NSMutableString *copsStr;
 
+@property (nonatomic, strong) NSString *strongStr;
+@property (nonatomic, copy) NSString *copysStr;
 
+@property (nonatomic, strong) NSMutableString *strongMStr;
 
+@property (nonatomic, strong) NSArray *strongArray;
+@property (nonatomic, copy) NSArray *copysArray;
 
+@property (nonatomic, strong) NSMutableArray *strongMArray;
 
+@property (nonatomic, strong) NSDictionary *strongDic;
+@property (nonatomic, copy) NSDictionary *copysDic;
 
-
+@property (nonatomic, strong) NSMutableDictionary *strongMDic;
 
 @end
 
@@ -32,28 +40,88 @@
 //  blog address :   http://blog.ximu.site/deep-or-shallow-copy/
 @implementation ViewController
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    OneViewController *one = [[OneViewController alloc] init];
+    
+    one.strongStr = self.strongStr;
+    one.copysStr = self.copysStr;
+    
+    one.strongMStr = self.strongMStr;
+    
+    one.strongArray = self.strongArray;
+    one.copysArray = self.copysArray;
+    
+    one.strongMArray = self.strongMArray;
+    
+    one.strongDic = self.strongDic;
+    one.copysDic = self.copysDic;
+    
+    one.strongMDic = self.strongMDic;
+    
+    [self.navigationController pushViewController:one animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"begin %s, %d", __FUNCTION__,__LINE__);
+    NSLog(@"%p, %@", self.strongStr, self.strongStr);
+    NSLog(@"%p, %@", self.copysStr, self.copysStr);
+    NSLog(@"===============");
+    NSLog(@"%p, %@", self.strongMStr, self.strongMStr);
+    NSLog(@"===============");
+    NSLog(@"%p, %@", self.strongArray, self.strongArray);
+    NSLog(@"%p, %@", self.copysArray, self.copysArray);
+    NSLog(@"===============");
+    NSLog(@"%p, %@", self.strongMArray, self.strongMArray);
+    NSLog(@"===============");
+    NSLog(@"%p, %@", self.strongDic, self.strongDic);
+    NSLog(@"%p, %@", self.copysDic, self.copysDic);
+    NSLog(@"===============");
+    NSLog(@"%p, %@", self.strongMDic, self.strongMDic);
+    NSLog(@"end %s, %d", __FUNCTION__,__LINE__);
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    self.strongStr = @"strongStr";
+    self.copysStr = @"copysStr";
+
+    self.strongMStr = [NSMutableString stringWithString:@"strongMStr"];
+
+    self.strongArray = @[@"strongArray"];
+    self.copysArray = @[@"copysArray"];
+
+    self.strongMArray = @[@"strongMArray"].mutableCopy;
+
+    self.strongDic = @{@"key":@"strongDic"};
+    self.copysDic = @{@"key":@"copysDic"};
+
+    self.strongMDic = @{@"key":@"strongMDic"}.mutableCopy;
+    
+    
+    
 //    [self firstMethod];
 //    [self secondMethod];
-    
+//    [self testMethod];
     
 //    [self thirdMethod];
 //    [self fourthMethod];
 //    [self fifthMethod];
    
 //    [self sixthMethod];
-    
-    
+//
+//
 //    [self seventhMethod];
-    
+//
 //    [self eighthMethod];
     
     
-    [self ninthMethod];
-    
-    [self tenthMethod];
+//    [self ninthMethod];
+
+//    [self tenthMethod];
 }
 
 /**
@@ -138,6 +206,66 @@
      */
 }
 
+- (void)testMethod {
+//    NSArray *array1 = @[@"1", @"2"];
+//    NSLog(@"retainCount:%ld", [array1 retainCount]);
+//    NSMutableArray *array2 = array1.mutableCopy;
+//    NSLog(@"retainCount:%ld", [array1 retainCount]);
+//    NSArray *array3 = array1.copy;
+//    NSLog(@"retainCount:%ld", [array1 retainCount]);
+//
+//    NSLog(@"==========");
+//    NSArray *array4 = @[@"1", @"2"].mutableCopy;
+//    NSLog(@"retainCount:%ld", [array4 retainCount]);
+//
+//    NSArray *array5 = array4.copy;
+//    NSLog(@"retainCount:%ld", [array4 retainCount]);
+//
+//    NSMutableArray *array6 = array4.mutableCopy;
+//    NSLog(@"retainCount:%ld", [array4 retainCount]);
+//
+//
+//
+//
+//    NSLog(@"%p, %p, %p", array1, array2, array3);
+//    NSLog(@"%p, %p, %p", array4, array5, array6);
+//    for (NSString *str in array4) {
+//        NSLog(@"str1 = %p", str);
+//    }
+//    for (NSString *str in array5) {
+//        NSLog(@"str2 = %p", str);
+//    }
+//    for (NSString *str in array6) {
+//        NSLog(@"str3 = %p", str);
+//    }
+    
+    NSMutableDictionary *dic1 = @{@"key":@"value"}.mutableCopy;
+    NSLog(@"retainCount:%ld", [dic1 retainCount]);
+    
+    NSDictionary *dic2 = dic1.copy;
+    NSLog(@"retainCount:%ld", [dic1 retainCount]);
+    
+    NSMutableDictionary *dic3 = dic1.mutableCopy;
+    NSLog(@"retainCount:%ld", [dic1 retainCount]);
+    
+    NSLog(@"%p, %p, %p", dic1, dic2, dic3);
+    
+
+    for (NSString *str in dic1.allKeys) {
+        NSLog(@"str1 = %p", str);
+    }
+    for (NSString *str in dic2.allKeys) {
+        NSLog(@"str2 = %p", str);
+    }
+    
+    for (NSString *str in dic3.allKeys) {
+        NSLog(@"str3 = %p", str);
+    }
+    
+    
+}
+
+
 // 单层深拷贝, 完全深拷贝
 
 /// 单层深拷贝
@@ -168,6 +296,8 @@
     
     NSLog(@"dataArray3：%@",dataArray3);
     NSLog(@"dataArray2：%@",dataArray2);
+    NSLog(@"dataArray1：%@",dataArray1);
+
 }
  
 - (void)fourthMethod {
@@ -191,14 +321,16 @@
     NSMutableArray * dataArray3;
     NSMutableString * mStr;
     
-    dataArray3=[[NSMutableArray alloc]initWithArray:dataArray2 copyItems:YES]; // 此方法只能复制单层
     
+    dataArray3=[[NSMutableArray alloc]initWithArray:dataArray2 copyItems:YES]; // 此方法只能复制单层
     NSMutableArray *mArr = (NSMutableArray *)dataArray2[4];
     mStr = mArr[0];
     [mStr appendString:@"--ONE"];
     
     NSLog(@"dataArray3：%@",dataArray3);
     NSLog(@"dataArray2：%@",dataArray2);
+    NSLog(@"dataArray1：%@",dataArray1);
+
 }
 
 // deep copy
@@ -224,13 +356,20 @@
     NSMutableString * mStr;
     
     dataArray3 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:dataArray2]];
-    
+
+
     NSMutableArray *mArr = (NSMutableArray *)dataArray2[4];
     mStr = mArr[0];
     [mStr appendString:@"--ONE"];
     
+    NSMutableArray *mArr1 = (NSMutableArray *)dataArray3[4];
+    mStr = mArr1[0];
+    [mStr appendString:@"--Test"];
+
     NSLog(@"dataArray3：%@",dataArray3);
     NSLog(@"dataArray2：%@",dataArray2);
+    NSLog(@"dataArray1：%@",dataArray1);
+
 }
 
 
@@ -241,6 +380,8 @@
     
     Person *copyPerson = [person copy];
     NSLog(@"%@ ==== %@", copyPerson.age, copyPerson.name);
+    
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++");
 }
 
 
@@ -255,17 +396,19 @@
     NSLog(@"%@ === %@ === %@", copyString, self.copysStr, str);
     
     self.strongStr = copyString ;
-    
+    [copyString appendString:@"FFFF"];
     NSLog(@"%p *** %p", copyString, self.strongStr);
     NSLog(@"%@ === %@", copyString, self.strongStr);
+    
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++");
 }
 
 - (void)eighthMethod {
     
     
     // 运行时会 crash, copy关键字的string的setter方法实际上是把参数copy之后再赋值给变量string，那么此时变量string虽然被申明为NSMutableString，但是copy之后，就把 变量_string变成了不可变的NSString类型，所以就会出现方法报错，提示对不可变的NSString使用了NSMutableString的方法appendString
-    self.copsStr = [[NSMutableString alloc] initWithString:@"dadfq"];
-    [self.copsStr appendString:@"222"];
+//    self.copsStr = [[NSMutableString alloc] initWithString:@"dadfq"];
+//    [self.copsStr appendString:@"222"];
     
 }
 
@@ -289,7 +432,7 @@
     
     NSArray *copyMArray = [mArray copy];
     NSArray *mCopyMArray = [mArray mutableCopy];
- 
+    
     
     
     
@@ -318,6 +461,8 @@
     NSLog(@"%@", mCopyArray);
     NSLog(@"%@", copyMArray);
     NSLog(@"%@", mCopyMArray);
+    
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++");
 }
 
 
